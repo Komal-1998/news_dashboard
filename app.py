@@ -45,7 +45,7 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server  # Required for deployment
 
 app.layout = dbc.Container([
-    html.H1("📰 Global News Dashboard", className="text-center my-4"),
+    html.H1("📰 UK News Dashboard", className="text-center my-4"),
 
     # Cards Row
     dbc.Row([
