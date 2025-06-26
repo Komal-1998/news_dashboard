@@ -15,7 +15,7 @@ app.title = "Hazard News Dashboard"
 
 # Layout
 app.layout = html.Div(style={"font-family": "Arial, sans-serif", "padding": "20px"}, children=[
-    html.H1("UK Hazard News Intelligence Dashboard", style={"textAlign": "center", "color": "#2c3e50"}),
+    html.H1("UK Hazard Intelligence Dashboard", style={"textAlign": "center", "color": "#2c3e50"}),
 
     # Filters
     html.Div([
@@ -173,6 +173,9 @@ def update_dashboard(selected_categories, selected_cities, start_date, end_date)
 
     return pie1, pie2, bar, table_data
 
-# Run
-if __name__ == "__main__":
+# Run the app locally
+if __name__ == '__main__':
     app.run(debug=True)
+
+# Expose the server to Gunicorn (for deployment)
+server = app.server
