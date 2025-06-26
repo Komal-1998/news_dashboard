@@ -154,25 +154,27 @@ def update_dashboard(selected_categories, selected_counties, start_date, end_dat
         color_discrete_sequence=px.colors.qualitative.Set2
     )
 
-    # Pie Chart: Media by Counties
-    county_media_counts = filtered_df.groupby("counties")["media"].nunique().reset_index(name="unique_medias")
-    county_media_counts = county_media_counts.sort_values("unique_medias", ascending=False).head(10)
+    # Pie Chart: Top 10 Counties by Total Reported Hazards (article counts)
+    top_county_counts = filtered_df["counties"].value_counts().nlargest(10).reset_index()
+    top_county_counts.columns = ["counties", "article_count"]
     pie = px.pie(
-        county_media_counts,
+        top_county_counts,
         names="counties",
-        values="unique_medias",
-        title="Top 10 Counties by Number of Unique News Medias",
+        values="article_count",
+        title="Top 10 Counties by Highest Reported Hazard",
         color_discrete_sequence=px.colors.sequential.RdBu
     )
 
-    # Line Plot: Time Series of Articles per County
-    line_data = filtered_df.groupby(["publish_date_only", "counties"]).size().reset_index(name="article_count")
+    # Line Plot: Time Series by Top 5 Counties
+    top_5_counties = filtered_df["counties"].value_counts().nlargest(5).index.tolist()
+    line_df = filtered_df[filtered_df["counties"].isin(top_5_counties)]
+    line_data = line_df.groupby(["publish_date_only", "counties"]).size().reset_index(name="article_count")
     line = px.line(
         line_data,
         x="publish_date_only",
         y="article_count",
         color="counties",
-        title="Time Series of Articles by County",
+        title="Top 5 Active Counties",
         labels={"publish_date_only": "Date", "article_count": "Number of Articles"},
         color_discrete_sequence=px.colors.qualitative.Set2
     )
