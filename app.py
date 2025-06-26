@@ -15,7 +15,7 @@ app.title = "Hazard News Dashboard"
 
 # Layout
 app.layout = html.Div(style={"font-family": "Arial, sans-serif", "padding": "20px"}, children=[
-    html.H1("Hazard News Intelligence Dashboard", style={"textAlign": "center", "color": "#2c3e50"}),
+    html.H1("UK Hazard News Intelligence Dashboard", style={"textAlign": "center", "color": "#2c3e50"}),
 
     # Filters
     html.Div([
